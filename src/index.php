@@ -430,15 +430,16 @@ document.getElementById('form').addEventListener('submit', async function(event)
         });
 
         // Receber a resposta do servidor
-        const result = await response.text(); // Pode ser JSON se você retornar um objeto no servidor
+        const result = await response.text(); // Recebe o texto retornado do PHP
         feedbackMessage.textContent = result;
-        feedbackMessage.style.color = response.ok ? 'green' : 'red'; // Verde para sucesso, vermelho para erro
+        feedbackMessage.style.color = result.includes('Não há vagas disponíveis') ? 'red' : 'green'; // Verde para sucesso, vermelho para erro
     } catch (error) {
         feedbackMessage.textContent = 'Ocorreu um erro. Tente novamente mais tarde.';
         feedbackMessage.style.color = 'red';
     }
 });
 </script>
+
 
 
 

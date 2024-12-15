@@ -1,3 +1,56 @@
+<?php
+// Conexão com o banco de dados (substitua os dados conforme necessário)
+include 'db.php';
+
+// Função para salvar a reserva
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['checkin'], $_POST['checkout'], $_POST['rooms'], $_POST['guests'])) {
+        $data_entrada = $_POST['checkin'];
+        $data_saida = $_POST['checkout'];
+        $quartos = $_POST['rooms'];
+        $convidados = $_POST['guests'];
+
+        $sql = "INSERT INTO reservas (data_entrada, data_saida, quartos, convidados) VALUES (:data_entrada, :data_saida, :quartos, :convidados)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':data_entrada' => $data_entrada, ':data_saida' => $data_saida, ':quartos' => $quartos, ':convidados' => $convidados]);
+
+        echo "Reserva salva com sucesso!";
+    }
+}
+
+// Função para deletar a reserva
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    $sql = "DELETE FROM reservas WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([':id' => $id]);
+
+    echo "Reserva excluída com sucesso!";
+}
+
+// Função para editar a reserva
+if (isset($_GET['edit'])) {
+    $id = $_GET['edit'];
+    $stmt = $pdo->prepare("SELECT * FROM reservas WHERE id = :id");
+    $stmt->execute([':id' => $id]);
+    $reserva = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Atualizar a reserva
+        $data_entrada = $_POST['checkin'];
+        $data_saida = $_POST['checkout'];
+        $quartos = $_POST['rooms'];
+        $convidados = $_POST['guests'];
+
+        $sql = "UPDATE reservas SET data_entrada = :data_entrada, data_saida = :data_saida, quartos = :quartos, convidados = :convidados WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':data_entrada' => $data_entrada, ':data_saida' => $data_saida, ':quartos' => $quartos, ':convidados' => $convidados, ':id' => $id]);
+
+        echo "Reserva atualizada com sucesso!";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -235,7 +288,7 @@
                 <p>Aqui você pode gerenciar o sistema.</p>
             </div>
             <div class="section" id="reservations">
-                <form action="processa_reserva.php" method="POST">
+                <form action="" method="POST">
                     <label for="checkin">Data de Check-in:</label>
                     <input type="date" id="checkin" name="checkin" required>
                     <br>
@@ -255,7 +308,7 @@
                     <button type="submit">Salvar Reserva</button>
                 </form>
 
-                <h2>Reservas Existentes</h2>
+                <h2>Reservas Marcadas</h2>
                 <table>
                     <thead>
                         <tr>
@@ -268,7 +321,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Aqui serão listadas as reservas existentes -->
+                        <?php
+                        // Listar reservas
+                        $stmt = $pdo->query("SELECT * FROM reservas");
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<tr>";
+                            echo "<td>{$row['id']}</td>";
+                            echo "<td>{$row['data_entrada']}</td>";
+                            echo "<td>{$row['data_saida']}</td>";
+                            echo "<td>{$row['quartos']}</td>";
+                            echo "<td>{$row['convidados']}</td>";
+                            echo "<td>
+                                    <a href='?edit={$row['id']}#'>Editar</a> | 
+                                    <a href='?delete={$row['id']}#'>Excluir</a>
+                                  </td>";
+                            echo "</tr>";
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
