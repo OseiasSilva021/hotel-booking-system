@@ -168,7 +168,3 @@ Contribuições são bem-vindas! Se você tiver sugestões de melhorias ou corre
 ## Licença 📜
 
 Este projeto está licenciado sob a [MIT License](LICENSE). ⚖️
-
----
-
-Agora o README inclui as informações do Dockerfile e docker-compose, além de outras melhorias. Se precisar de mais ajustes, é só avisar! 😊
