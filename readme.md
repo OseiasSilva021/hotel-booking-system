@@ -13,7 +13,7 @@ Este projeto é um sistema de reserva de hotel full stack, que permite aos usuá
 
 ### Para o Administrador 🛠️:
 - **Gerenciamento de Reservas** 🗂️: O administrador pode visualizar todas as reservas feitas pelos usuários na página de administração.
-- 
+
 - **Edição e Exclusão de Reservas** ✏️❌: O administrador pode editar as datas das reservas feitas pelos usuários ou excluir uma reserva se necessário.
 
 ## Estrutura do Banco de Dados 🗄️
