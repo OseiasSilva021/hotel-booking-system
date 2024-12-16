@@ -1036,14 +1036,14 @@ document.getElementById('form').addEventListener('submit', async function(event)
           <form class="position-relative" method="POST" id="newsletterForm">
             <input type="text" class="form-control px-4 py-3 bg-transparent mb-3" id="nomedousuario" placeholder="Your Name" name="nomedousuario">
             <input type="email" class="form-control px-4 py-3 bg-transparent" id="emaildousuario" placeholder="Your email" name="emaildousuario">
-            <p id="feedbackMessage" class="mt-3"></p>
+            <p id="feedbackMessagee" class="mt-3"></p>
             <script>
 document.getElementById('newsletterForm').addEventListener('submit', async function(event) {
     event.preventDefault(); // Impede o recarregamento da página
 
     // Coletar os dados do formulário
     const formData = new FormData(this);
-    const feedbackMessage = document.getElementById('feedbackMessage');
+    const feedbackMessage = document.getElementById('feedbackMessagee');
     
     // Enviar os dados para o servidor
     try {
