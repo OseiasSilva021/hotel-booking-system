@@ -57,219 +57,231 @@ if (isset($_GET['edit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Controle - Admin</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            height: 100vh;
-            background-color: #f4f4f9;
-            color: #333;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: #f4f4f9;
+    color: #333;
+}
 
-        .container {
-            display: flex;
-            width: 100%;
-            height: 100%;
-        }
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
 
-        .sidebar {
-            width: 250px;
-            background-color: #2c3e50;
-            color: #fff;
-            padding: 30px 20px;
-            height: 100vh;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-        }
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 30px 20px;
+    height: 100vh;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+}
 
-        .sidebar-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
+.sidebar:hover {
+    width: 280px;
+}
 
-        .sidebar-header h2 {
-            font-size: 22px;
-            font-weight: 600;
-        }
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
 
-        .sidebar-menu {
-            list-style: none;
-            padding-left: 0;
-        }
+.sidebar-header h2 {
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-        .sidebar-menu li {
-            margin-bottom: 20px;
-        }
+.sidebar-menu {
+    list-style: none;
+    padding-left: 0;
+}
 
-        .sidebar-menu a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 18px;
-            display: block;
-            padding: 12px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s, padding-left 0.2s;
-        }
+.sidebar-menu li {
+    margin-bottom: 20px;
+}
 
-        .sidebar-menu a:hover {
-            background-color: #1abc9c;
-            padding-left: 30px;
-        }
+.sidebar-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 12px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s, padding-left 0.2s;
+}
 
-        .main-content {
-            flex-grow: 1;
-            padding: 20px;
-            margin-left: 250px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-        }
+.sidebar-menu a:hover {
+    background-color: #1abc9c;
+    padding-left: 30px;
+}
 
-        .section {
-            display: none;
-        }
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 250px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    transition: margin-left 0.3s ease;
+}
 
-        .section h1 {
-            margin-bottom: 20px;
-            font-size: 26px;
-            color: #2c3e50;
-            font-weight: bold;
-        }
+.main-content h1 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #2c3e50;
+    font-weight: bold;
+}
 
-        .section p {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #7f8c8d;
-        }
+.section p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #7f8c8d;
+}
 
-        #home {
-            display: block;
-        }
+form {
+    background-color: #ecf0f1;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
 
-        form {
-            background-color: #ecf0f1;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
+form label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+}
 
-        form label {
-            font-size: 16px;
-            margin-bottom: 8px;
-            display: block;
-        }
+form input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
 
-        form input {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-        }
+form input[type="date"] {
+    max-width: 200px;
+}
 
-        form input[type="date"] {
-            max-width: 200px;
-        }
+form input:focus {
+    border-color: #3498db;
+    outline: none;
+}
 
-        form button {
-            padding: 12px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
+form button {
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
 
-        form button:hover {
-            background-color: #45a049;
-        }
+form button:hover {
+    background-color: #45a049;
+}
 
-        h2 {
-            font-size: 22px;
-            margin-bottom: 20px;
-            color: #2c3e50;
-            font-weight: bold;
-        }
+h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-weight: bold;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
-        table, th, td {
-            border: 1px solid #ddd;
-        }
+table, th, td {
+    border: 1px solid #ddd;
+}
 
-        th, td {
-            padding: 15px;
-            text-align: left;
-            font-size: 16px;
-            color: #34495e;
-        }
+th, td {
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+    color: #34495e;
+}
 
-        th {
-            background-color: #2c3e50;
-            color: white;
-        }
+th {
+    background-color: #2c3e50;
+    color: white;
+}
 
-        button {
-            padding: 10px 15px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 14px;
-            margin-right: 10px;
-            transition: background-color 0.3s ease;
-        }
+button {
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
 
-        button:hover {
-            background-color: #2980b9;
-        }
+button:hover {
+    background-color: #2980b9;
+}
 
-        button:active {
-            background-color: #1abc9c;
-        }
+button:active {
+    background-color: #1abc9c;
+}
 
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
 
-            .sidebar {
-                width: 100%;
-                position: relative;
-                height: auto;
-                box-shadow: none;
-            }
+    .sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+        box-shadow: none;
+        transition: none;
+    }
 
-            .main-content {
-                margin-left: 0;
-                margin-top: 20px;
-            }
+    .main-content {
+        margin-left: 0;
+        margin-top: 20px;
+    }
 
-            .sidebar-menu a {
-                font-size: 16px;
-                padding: 10px;
-            }
-        }
-    </style>
+    .sidebar-menu a {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .sidebar-header h2 {
+        font-size: 20px;
+    }
+}
+
+  </style>
 </head>
 <body>
     <div class="container">
