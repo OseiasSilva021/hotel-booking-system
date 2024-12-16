@@ -1,7 +1,3 @@
-Aqui está o README atualizado, levando em consideração o Dockerfile e o docker-compose fornecidos:
-
----
-
 # 🏨 **Hotel Booking System** 🏨
 
 Este projeto é um sistema de reserva de hotel full stack, que permite aos usuários verificar a disponibilidade de quartos e fazer suas próprias reservas, além de permitir ao administrador gerenciar as reservas feitas. O projeto também inclui um formulário de inscrição para a newsletter da empresa, no qual os usuários podem se registrar para receber atualizações. ✉️
