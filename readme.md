@@ -2,6 +2,9 @@
 
 Este projeto é um sistema de reserva de hotel full stack, que permite aos usuários verificar a disponibilidade de quartos e fazer suas próprias reservas, além de permitir ao administrador gerenciar as reservas feitas. O projeto também inclui um formulário de inscrição para a newsletter da empresa, no qual os usuários podem se registrar para receber atualizações. ✉️
 
+# Clique para ver o Vídeo de Demonstração ⬇️
+[![Demo do Projeto](https://img.youtube.com/vi/uFZKpbZOdGI/maxresdefault.jpg)](https://youtu.be/z5PR2tNd2EE)
+
 ## Funcionalidades 🚀
 
 ### Para o Usuário 👤:
